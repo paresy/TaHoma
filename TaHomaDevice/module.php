@@ -21,7 +21,7 @@ class TaHomaDevice extends IPSModule
             IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'closed', $this->Translate('closed'), 'Window-100', -1);
         }
         if (!IPS_VariableProfileExists('TAHOMA.OpenClosedUnknownState')) {
-            IPS_CreateVariableProfile('TAHOMA.OpenClosedState', VARIABLETYPE_STRING);
+            IPS_CreateVariableProfile('TAHOMA.OpenClosedUnknownState', VARIABLETYPE_STRING);
             IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedUnknownState', 'open', $this->Translate('open'), 'Window-0', -1);
             IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedUnknownState', 'stop', $this->Translate('stop'), '', -1);
             IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedUnknownState', 'closed', $this->Translate('closed'), 'Window-100', -1);
