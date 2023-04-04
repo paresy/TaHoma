@@ -16,9 +16,16 @@ class TaHomaDevice extends IPSModule
         //Register Profiles
         if (!IPS_VariableProfileExists('TAHOMA.OpenClosedState')) {
             IPS_CreateVariableProfile('TAHOMA.OpenClosedState', VARIABLETYPE_STRING);
-            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'open', $this->Translate('Offen'), 'Window-0', -1);
-            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'stop', $this->Translate('Stop'), '', -1);
-            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'closed', $this->Translate('Geschlossen'), 'Window-100', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'open', $this->Translate('open'), 'Window-0', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'stop', $this->Translate('stop'), '', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'closed', $this->Translate('closed'), 'Window-100', -1);
+        }
+        if (!IPS_VariableProfileExists('TAHOMA.OpenClosedUnknownState')) {
+            IPS_CreateVariableProfile('TAHOMA.OpenClosedState', VARIABLETYPE_STRING);
+            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedUnknownState', 'open', $this->Translate('open'), 'Window-0', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedUnknownState', 'stop', $this->Translate('stop'), '', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedUnknownState', 'closed', $this->Translate('closed'), 'Window-100', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedUnknownState', 'unknown', $this->Translate('unknown'), '', -1);
         }
     }
 
@@ -86,6 +93,7 @@ class TaHomaDevice extends IPSModule
                 $this->SendCommand('setOrientation', [$Value]);
                 break;
             case 'core_OpenClosedState':
+            case 'core_OpenClosedUnknownState':
                 switch ($Value) {
                     case 'open':
                         $this->SendCommand('open', []);
@@ -135,10 +143,10 @@ class TaHomaDevice extends IPSModule
             if ($command->commandName == $required[0]) {
                 if (count($required) <= 1) {
                     return true;
-                } else {
-                    array_shift($required);
-                    return $this->supportsCommands($commands, $required);
                 }
+
+                array_shift($required);
+                return $this->supportsCommands($commands, $required);
             }
         }
         return false;
@@ -174,7 +182,8 @@ class TaHomaDevice extends IPSModule
     {
         switch ($name) {
             case 'core:OpenClosedState':
-                return $this->Translate('Status');
+            case 'core:OpenClosedUnknownState':
+                return $this->Translate('State');
             case 'core:TargetClosureState':
             case 'core:ClosureState':
                 return $this->Translate('Position');
@@ -185,9 +194,7 @@ class TaHomaDevice extends IPSModule
             case 'core:MovingState':
                 return $this->Translate('Moving');
             default:
-                $name = str_replace('core:', '', $name);
-                $name = str_replace('internal:', '', $name);
-                $name = str_replace('State', '', $name);
+                $name = str_replace(['core:', 'internal:', 'State'], '', $name);
                 return $name;
         }
     }
@@ -206,6 +213,8 @@ class TaHomaDevice extends IPSModule
                 return '~Intensity.100';
             case 'core:OpenClosedState':
                 return 'TAHOMA.OpenClosedState';
+            case 'core:OpenClosedUnknownState':
+                return 'TAHOMA.OpenClosedUnknownState';
             default:
                 return '';
         }
@@ -215,6 +224,7 @@ class TaHomaDevice extends IPSModule
     {
         switch ($name) {
             case 'core:OpenClosedState':
+            case 'core:OpenClosedUnknownState':
                 return 1;
             case 'core:TargetClosureState':
             case 'core:ClosureState':
@@ -248,7 +258,7 @@ class TaHomaDevice extends IPSModule
             // But for VELUX, we might not get a TargetClosureState. Use this as a fallback
             case 'core:ClosureState':
                 foreach ($states as $state) {
-                    if ($state->name == 'core:TargetClosureState') {
+                    if ($state->name === 'core:TargetClosureState') {
                         return true;
                     }
                 }
@@ -266,6 +276,7 @@ class TaHomaDevice extends IPSModule
             case 'core:ClosureState':
             case 'core:SlateOrientationState':
             case 'core:OpenClosedState':
+            case 'core:OpenClosedUnknownState':
                 $this->EnableAction($this->sanitizeName($name));
                 break;
         }
