@@ -1,6 +1,6 @@
-# Tahoma
+# TaHoma
 
-Dieses Modul ist kompatibel mit IP-Symcon ab Version 6.x. Es ermöglicht die Kommunikation mit Somfy Rolladen/Aktoren und einer TaHoma Box (V2), TaHoma DIN-Rail und TaHoma Switch. Die Connexoon Box und der TaHoma Classic (V) ist nicht kompatibel und laut Somfy wird es auch kein Update dafür geben. Bitte zur Sicherheit vorher prüfen, ob der Developer Mode aktiviert werden kann!
+Dieses Modul ist kompatibel mit IP-Symcon ab Version 6.x. Es ermöglicht die Kommunikation mit Somfy Rollladen/Aktoren und einer TaHoma Box (V2), TaHoma DIN-Rail und TaHoma Switch. Die Connexoon Box und der TaHoma Classic (V) ist nicht kompatibel und laut Somfy wird es auch kein Update dafür geben. Bitte zur Sicherheit vorher prüfen, ob der Developer Mode aktiviert werden kann!
 
 ## Dokumentation
 
@@ -27,9 +27,9 @@ Um die neue API nutzen zu können muss der Developer Mode auf dem Gerät aktivie
 
 ### b. Modul installieren
 
-Die Verwaltungskonsile von IP-Symcon mit _http://{IP-Symcon IP}:3777/console/_ öffnen. 
+Die Verwaltungskonsole von IP-Symcon mit _http://{IP-Symcon IP}:3777/console/_ öffnen. 
 
-Anschließend oben rechts auf das Symbol für den Modul Store klicken
+Anschließend oben rechts auf das Symbol für den Modul Store klicken.
 
 Im Suchfeld nun
 
@@ -37,8 +37,8 @@ Im Suchfeld nun
 TaHoma
 ```  
 
-eingeben und schließend das Modul auswählen und auf _Installieren_ klicken.
+eingeben, das Modul auswählen und auf _Installieren_ klicken.
 
 ### b. Gateway/Geräte konfigurieren
 
-Nach der Installation bietet der Module Store an, dass die Discovery Instanz erstellt wird. Dies bejahen. Sofern ein kompatibles TaHoma Gateway vor Ort ist, kann dies Erstellt werden. Im erstelleten Konfigurator sind dann alle kompatiblen Geräte direkt verfügbar und können ebenfalls erstellt werden. Über die Geräteinstanzen können dann die Rolladen direkt gesteuert werden und empfangen auch über den Rückkanal den Status sofern lokal änderungen durchgeführt werden.
+Nach der Installation bietet der Module Store an, dass die Discovery Instanz erstellt wird. Dies bejahen. Sofern ein kompatibles TaHoma Gateway vor Ort ist, kann dies Erstellt werden. Im erstellten Konfigurator sind dann alle kompatiblen Geräte direkt verfügbar und können ebenfalls erstellt werden. Über die Geräteinstanzen können dann die Rollladen direkt gesteuert werden und empfangen auch über den Rückkanal den Status, sofern lokal Änderungen durchgeführt werden.

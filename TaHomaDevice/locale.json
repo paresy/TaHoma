@@ -1,13 +1,18 @@
 {
     "translations": {
         "de": {
-            "Status": "Zustand",
+            "State": "Zustand",
             "Position": "Position",
             "Slate": "Lamellen",
             "Connection": "Verbindung",
             "Moving": "In Bewegung",
             "Update": "Aktualisieren",
-            "Identify": "Identifizieren"
+            "Identify": "Identifizieren",
+            "open": "geöffnet",
+            "stop": "stop",
+            "closed": "geschlossen",
+            "unknown": "unbekannt",
+            "Emulate": "Status emulieren"
         }
     }
 }
