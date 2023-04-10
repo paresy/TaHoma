@@ -110,7 +110,7 @@ class TaHomaDevice extends IPSModule
             default:
                 throw new Exception('Invalid Ident');
         }
-        if ($this->ReadPropertyBoolean('Emulate')){
+        if ($this->ReadPropertyBoolean('EmulateStatus')){
             $this->SetValue($Ident, $Value);
         }
     }
