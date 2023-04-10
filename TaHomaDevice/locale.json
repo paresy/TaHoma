@@ -11,7 +11,8 @@
             "open": "geöffnet",
             "stop": "stop",
             "closed": "geschlossen",
-            "unknown": "unbekannt"
+            "unknown": "unbekannt",
+            "Emulate": "Status emulieren"
         }
     }
 }
