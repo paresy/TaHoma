@@ -12,6 +12,7 @@ class TaHomaDevice extends IPSModule
         $this->ConnectParent('{161B0F84-1B8B-2EF0-1C8F-2EFFAC39006E}');
 
         $this->RegisterPropertyString('DeviceURL', '');
+        $this->RegisterPropertyBoolean('Emulate', false);
 
         //Register Profiles
         if (!IPS_VariableProfileExists('TAHOMA.OpenClosedState')) {
@@ -108,6 +109,9 @@ class TaHomaDevice extends IPSModule
                 break;
             default:
                 throw new Exception('Invalid Ident');
+        }
+        if ($this->ReadPropertyBoolean('Emulate')){
+            $this->SetValue($Ident, $Value);
         }
     }
 

@@ -4,6 +4,11 @@
             "type": "ValidationTextBox",
             "name": "DeviceURL",
             "caption": "Device URL"
+        },
+        {
+            "type": "CheckBox",
+            "name": "EmulateStatus",
+            "caption": "Emulate"
         }
     ],
     "actions": [
