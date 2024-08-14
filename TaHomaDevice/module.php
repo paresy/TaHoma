@@ -20,6 +20,11 @@ class TaHomaDevice extends IPSModule
             IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'stop', $this->Translate('Stop'), '', -1);
             IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'closed', $this->Translate('Geschlossen'), 'Window-100', -1);
         }
+        if (!IPS_VariableProfileExists('TAHOMA.OnOffState')) {
+            IPS_CreateVariableProfile('TAHOMA.OnOffState', VARIABLETYPE_STRING);
+            IPS_SetVariableProfileAssociation('TAHOMA.OnOffState', 'on', $this->Translate('An'), '', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OnOffState', 'off', $this->Translate('Aus'), '', -1);
+        }
     }
 
     public function ApplyChanges()
@@ -98,6 +103,12 @@ class TaHomaDevice extends IPSModule
                         break;
                 }
                 break;
+            case 'core:OnOffState':
+                $this->SendCommand($Value, []);
+                break;
+            case 'core:LightIntensityState':
+                $this->SendCommand('setIntensity', [$Value]);
+                break;
             default:
                 throw new Exception('Invalid Ident');
         }
@@ -174,10 +185,13 @@ class TaHomaDevice extends IPSModule
     {
         switch ($name) {
             case 'core:OpenClosedState':
+            case 'core:OnOffState':
                 return $this->Translate('Status');
             case 'core:TargetClosureState':
             case 'core:ClosureState':
                 return $this->Translate('Position');
+            case 'core:LightIntensityState':
+                return $this->Translate('Intensity');
             case 'core:SlateOrientationState':
                 return $this->Translate('Slate');
             case 'core:DiscreteRSSILevelState':
@@ -203,9 +217,12 @@ class TaHomaDevice extends IPSModule
             case 'core:TargetClosureState':
             case 'core:ClosureState':
             case 'core:SlateOrientationState':
+            case 'core:LightIntensityState':
                 return '~Intensity.100';
             case 'core:OpenClosedState':
                 return 'TAHOMA.OpenClosedState';
+            case 'core:OnOffState':
+                return 'TAHOMA.OnOffState';
             default:
                 return '';
         }
@@ -266,6 +283,8 @@ class TaHomaDevice extends IPSModule
             case 'core:ClosureState':
             case 'core:SlateOrientationState':
             case 'core:OpenClosedState':
+            case 'core:OnOffState':
+            case 'core:LightIntensityState':
                 $this->EnableAction($this->sanitizeName($name));
                 break;
         }
