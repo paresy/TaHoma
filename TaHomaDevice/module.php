@@ -16,14 +16,14 @@ class TaHomaDevice extends IPSModule
         //Register Profiles
         if (!IPS_VariableProfileExists('TAHOMA.OpenClosedState')) {
             IPS_CreateVariableProfile('TAHOMA.OpenClosedState', VARIABLETYPE_STRING);
-            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'open', $this->Translate('Offen'), 'Window-0', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'open', $this->Translate('Opened'), 'Window-0', -1);
             IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'stop', $this->Translate('Stop'), '', -1);
-            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'closed', $this->Translate('Geschlossen'), 'Window-100', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OpenClosedState', 'closed', $this->Translate('Closed'), 'Window-100', -1);
         }
         if (!IPS_VariableProfileExists('TAHOMA.OnOffState')) {
             IPS_CreateVariableProfile('TAHOMA.OnOffState', VARIABLETYPE_STRING);
-            IPS_SetVariableProfileAssociation('TAHOMA.OnOffState', 'on', $this->Translate('An'), '', -1);
-            IPS_SetVariableProfileAssociation('TAHOMA.OnOffState', 'off', $this->Translate('Aus'), '', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OnOffState', 'on', $this->Translate('On'), '', -1);
+            IPS_SetVariableProfileAssociation('TAHOMA.OnOffState', 'off', $this->Translate('Off'), '', -1);
         }
     }
 

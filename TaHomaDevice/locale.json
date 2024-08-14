@@ -8,7 +8,11 @@
             "Moving": "In Bewegung",
             "Update": "Aktualisieren",
             "Identify": "Identifizieren",
-            "Intensity": "Intensität"
+            "Intensity": "Intensität",
+            "Opened": "Offen",
+            "Closed": "Geschlossen",
+            "On": "An",
+            "Off": "Aus"
         }
     }
 }
