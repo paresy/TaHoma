@@ -103,10 +103,10 @@ class TaHomaDevice extends IPSModule
                         break;
                 }
                 break;
-            case 'core:OnOffState':
+            case 'core_OnOffState':
                 $this->SendCommand($Value, []);
                 break;
-            case 'core:LightIntensityState':
+            case 'core_LightIntensityState':
                 $this->SendCommand('setIntensity', [$Value]);
                 break;
             default:
