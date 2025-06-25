@@ -23,7 +23,7 @@ Steuerung von Somfy Geräten über die neue lokale Somfy API genannt "Developer 
 
 ### a. TaHoma Gerät vorbereiten
 
-Um die neue API nutzen zu können muss der Developer Mode auf dem Gerät aktiviert werden. Eine Anleitung von Somfy dazu befindet sich hier: https://developer.somfy.com/developer-mode
+Um die neue API nutzen zu können muss der Developer Mode auf dem Gerät aktiviert werden. Eine Anleitung von Somfy dazu befindet sich hier: https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode
 
 ### b. Modul installieren
 
