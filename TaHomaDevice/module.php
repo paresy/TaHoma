@@ -13,6 +13,8 @@ class TaHomaDevice extends IPSModule
 
         $this->RegisterPropertyString('DeviceURL', '');
 
+        $this->RegisterAttributeString('CommandForPositioning', 'setPosition');
+
         //Register Profiles
         if (!IPS_VariableProfileExists('TAHOMA.OpenClosedState')) {
             IPS_CreateVariableProfile('TAHOMA.OpenClosedState', VARIABLETYPE_STRING);
@@ -68,6 +70,13 @@ class TaHomaDevice extends IPSModule
             $this->processState($state, $result->states);
         }
 
+        // Some Window coverings do not support the basic setPosition command
+        // But they do support setPositionAndLinearSpeed which we are required to use
+        // Detect this special case and remember the command
+        if ($this->supportsCommands($result->definition->commands, ['setPositionAndLinearSpeed'])) {
+            $this->WriteAttributeString('CommandForPositioning', 'setPositionAndLinearSpeed');
+        }
+
         // RTS devices do not seem to report any supported states
         // But they are happy to execute open, stop, close commands
         // We want to check for availability of those commands and simulate an open/close variable
@@ -85,7 +94,9 @@ class TaHomaDevice extends IPSModule
         switch ($Ident) {
             case 'core_TargetClosureState':
             case 'core_ClosureState':
-                $this->SendCommand('setPosition', [$Value]);
+                // By default, setPosition is used but for some devices we need to use setPositionAndLinearSpeed
+                $command = $this->ReadAttributeString('CommandForPositioning');
+                $this->SendCommand($command, [$Value]);
                 break;
             case 'core_SlateOrientationState':
                 $this->SendCommand('setOrientation', [$Value]);
