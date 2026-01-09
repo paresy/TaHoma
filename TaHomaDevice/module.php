@@ -57,8 +57,8 @@ class TaHomaDevice extends IPSModule
         }
 
         // Somfy RTS
-        if (isset($data->actions)) {
-            foreach ($data->actions as $action) {
+        if (isset($data->Event->actions)) {
+            foreach ($data->Event->actions as $action) {
                 switch($action->command) {
                     case 'open':
                         $this->SetValue('core_OpenClosedState', 'open');
