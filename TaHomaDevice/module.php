@@ -49,9 +49,27 @@ class TaHomaDevice extends IPSModule
 
         $this->SendDebug('EVENT', json_encode($data->Event), 0);
 
+        // Somfy io
         if (isset($data->Event->deviceStates)) {
             foreach ($data->Event->deviceStates as $state) {
                 $this->processState($state, $data->Event->deviceStates);
+            }
+        }
+
+        // Somfy RTS
+        if (isset($data->actions)) {
+            foreach ($data->actions as $action) {
+                switch($action->command) {
+                    case 'open':
+                        $this->SetValue('core_OpenClosedState', 'open');
+                        break;
+                    case 'stop':
+                        $this->SetValue('core_OpenClosedState', 'stop');
+                        break;
+                    case 'close':
+                        $this->SetValue('core_OpenClosedState', 'closed');
+                        break;
+                }
             }
         }
     }
