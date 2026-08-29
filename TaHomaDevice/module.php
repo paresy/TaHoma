@@ -193,6 +193,11 @@ class TaHomaDevice extends IPSModule
                     $this->SetValue($this->sanitizeName($state->name), $state->value);
                     $this->registerAction($state->name);
                     break;
+                case 2: // Float
+                    $this->RegisterVariableFloat($this->sanitizeName($state->name), $this->beautifyName($state->name), $this->getProfile($state->name), $this->getPosition($state->name));
+                    $this->SetValue($this->sanitizeName($state->name), $state->value);
+                    $this->registerAction($state->name);
+                    break;
                 case 3: // String
                     $this->RegisterVariableString($this->sanitizeName($state->name), $this->beautifyName($state->name), $this->getProfile($state->name), $this->getPosition($state->name));
                     $this->SetValue($this->sanitizeName($state->name), $state->value);
@@ -202,6 +207,10 @@ class TaHomaDevice extends IPSModule
                     $this->RegisterVariableBoolean($this->sanitizeName($state->name), $this->beautifyName($state->name), $this->getProfile($state->name), $this->getPosition($state->name));
                     $this->SetValue($this->sanitizeName($state->name), $state->value);
                     $this->registerAction($state->name);
+                    break;
+                case 10: // Array
+                    $this->RegisterVariableString($this->sanitizeName($state->name), $this->beautifyName($state->name), $this->getProfile($state->name), $this->getPosition($state->name));
+                    $this->SetValue($this->sanitizeName($state->name), implode(', ', $state->value));
                     break;
                 case 11: // Object
                     $this->SendDebug('UNSUPPORTED', $state->name . ': ' . json_encode($state->value), 0);
@@ -227,6 +236,10 @@ class TaHomaDevice extends IPSModule
                 return $this->Translate('Connection');
             case 'core:MovingState':
                 return $this->Translate('Moving');
+            case 'core:TemperatureState':
+                return $this->Translate('Temperature');
+            case 'core:ErrorsState':
+                return $this->Translate('Errors');
             default:
                 $name = str_replace('core:', '', $name);
                 $name = str_replace('internal:', '', $name);
@@ -252,6 +265,8 @@ class TaHomaDevice extends IPSModule
                 return 'TAHOMA.OpenClosedState';
             case 'core:OnOffState':
                 return 'TAHOMA.OnOffState';
+            case 'core:TemperatureState':
+                return '~Temperature';
             default:
                 return '';
         }
@@ -261,6 +276,7 @@ class TaHomaDevice extends IPSModule
     {
         switch ($name) {
             case 'core:OpenClosedState':
+            case 'core:TemperatureState':
                 return 1;
             case 'core:TargetClosureState':
             case 'core:ClosureState':
